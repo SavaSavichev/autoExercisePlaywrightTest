@@ -1,11 +1,11 @@
 import { test, expect } from "@playwright/test";
-import AddedToCartModal from "../pageObjects/addedToCartModal";
-import CartPage from "../pageObjects/cartPage";
-import CatalogPage from "../pageObjects/catalogPage";
-import Header from "../pageObjects/header";
-import MainPage from "../pageObjects/mainPage";
-import ProductPage from "../pageObjects/productPage";
-import { productData } from "../helpers/testData";
+import AddedToCartModal from "../POM/pageObjects/addedToCartModal";
+import CartPage from "../POM/pageObjects/cartPage";
+import CatalogPage from "../POM/pageObjects/catalogPage";
+import Header from "../POM/pageObjects/header";
+import MainPage from "../POM/pageObjects/mainPage";
+import ProductPage from "../POM/pageObjects/productPage";
+import { productData } from "../POM/helpers/testData";
 
 test.describe("Product Page – Interactions and Validations", () => {
     test.beforeEach(async ({ page }) => {

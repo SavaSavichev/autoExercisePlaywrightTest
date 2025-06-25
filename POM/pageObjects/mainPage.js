@@ -1,5 +1,6 @@
 // @ts-check
 
+import AddedToCartModal from './addedToCartModal';
 import CatalogPage from './catalogPage';
 import ProductPage from './productPage';
 
@@ -15,7 +16,9 @@ class MainPage {
     locators = {
         getMenTshirtViewProductButton: () => this.page.locator("a[href='/product_details/2']"),
         getMenButtonFromCategory: () => this.page.locator(".panel-title a[href='#Men']"),
-        getJeansLinkFromMenCategory: () => this.page.locator("a[href='/category_products/6']")
+        getJeansLinkFromMenCategory: () => this.page.locator("a[href='/category_products/6']"),
+        getBlueTopImage: () => this.page.locator(".productinfo").nth(0),
+        getAddToCartButtonBlueTop: () => this.page.locator(".add-to-cart").nth(1)
     }
 
     async loadMainPage() {
@@ -38,6 +41,13 @@ class MainPage {
         await this.locators.getJeansLinkFromMenCategory().click();
 
         return new CatalogPage(this.page);
+    }
+
+    async clickAddToCartBlueTop() {
+        await this.locators.getBlueTopImage().hover();
+        await this.locators.getAddToCartButtonBlueTop().click();
+
+        return new AddedToCartModal(this.page);
     }
 }
 

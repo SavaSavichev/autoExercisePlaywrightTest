@@ -10,7 +10,8 @@ class CartPage {
     }
 
     locators = {
-        getQuantity: () => this.page.locator(".cart_quantity button")
+        getQuantity: () => this.page.locator(".cart_quantity button"),
+        getItemDescription: () => this.page.locator(".cart_description a")
     } 
 
 }
