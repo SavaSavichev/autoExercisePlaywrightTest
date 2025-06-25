@@ -12,11 +12,18 @@ class CatalogPage {
     }
 
     locators = {
-        getJeansViewProductButton: () => this.page.locator("a[href='/product_details/33']")
+        getJeansViewProductButton: () => this.page.locator("a[href='/product_details/33']"),
+        getSareeBlueViewProductButton: () => this.page.locator("a[href='/product_details/41']")
     }
 
     async clickJeansViewProductButton() {
         await this.locators.getJeansViewProductButton().click();
+
+        return new ProductPage(this.page);
+    }
+
+    async clickSareeViewProductButton() {
+        await this.locators.getSareeBlueViewProductButton().click();
 
         return new ProductPage(this.page);
     }
