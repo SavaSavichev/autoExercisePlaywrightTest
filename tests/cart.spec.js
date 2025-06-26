@@ -62,4 +62,17 @@ test.describe("Cart Page – User Interactions and Validations", () => {
         const quantity = Number(cartData.quantity);
         expect(totalPrice).toBe(price * quantity);
     });
+
+    test("Deletes item from the cart", async ({ page }) => {
+        const mainPage = new MainPage(page);
+        await mainPage.clickAddToCartBlueTop();
+        
+        const addedToCartModal = new AddedToCartModal(page);
+        await addedToCartModal.clickViewCartLink();
+
+        const cartPage = new CartPage(page);
+        cartPage.clickDeleteButton();
+
+        await expect(cartPage.locators.getEmptyCartMessage()).toHaveText(cartData.emptyCartMessage);
+    });
 });

@@ -13,7 +13,9 @@ class CartPage {
         getQuantity: () => this.page.locator(".cart_quantity button"),
         getItemDescription: () => this.page.locator(".cart_description a"),
         getPrice: () => this.page.locator(".cart_price"),
-        getTotalPrice: () => this.page.locator(".cart_total_price")
+        getTotalPrice: () => this.page.locator(".cart_total_price"),
+        getDeleteButton: () => this.page.locator(".fa.fa-times"),
+        getEmptyCartMessage: () => this.page.locator("#empty_cart")
     }
     
     async getPrice() {
@@ -34,6 +36,12 @@ class CartPage {
       }
     
       return parseInt(totalPriceText.replace(/\D/g, ''), 10);
+    }
+
+    async clickDeleteButton() {
+      await this.locators.getDeleteButton().click();
+
+      return this;
     }
 }
 
