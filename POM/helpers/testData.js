@@ -7,6 +7,7 @@ export const productData = {
 }
 
 export const cartData = {
+    quantity: "4",
     blueTopText: "Blue Top",
     sareeText: "Beautiful Peacock Blue Cotton Linen Saree"
 }

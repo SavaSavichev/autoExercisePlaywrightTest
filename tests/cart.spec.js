@@ -40,4 +40,26 @@ test.describe("Cart Page – User Interactions and Validations", () => {
         const cartPage = new CartPage(page);
         await expect(cartPage.locators.getItemDescription()).toHaveText(cartData.sareeText);
     });
+
+    test("Updates total price according to quantity", async ({ page }) => {
+        const mainPage = new MainPage(page);
+        await mainPage.clickMenButtonFromCategory();
+        await mainPage.clickJeansLinkFromMenCategory();
+
+        const catalogPage = new CatalogPage(page);
+        catalogPage.clickJeansViewProductButton();
+
+        const productPage = new ProductPage(page);
+        productPage.setQuantity(cartData.quantity);
+        productPage.clickAddToCartButton();
+        
+        const addedToCartModal = new AddedToCartModal(page);
+        await addedToCartModal.clickViewCartLink();
+
+        const cartPage = new CartPage(page);
+        const price = await cartPage.getPrice();
+        const totalPrice = await cartPage.getTotalPrice();
+        const quantity = Number(cartData.quantity);
+        expect(totalPrice).toBe(price * quantity);
+    });
 });

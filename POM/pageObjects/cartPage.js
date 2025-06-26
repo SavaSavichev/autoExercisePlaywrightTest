@@ -11,9 +11,30 @@ class CartPage {
 
     locators = {
         getQuantity: () => this.page.locator(".cart_quantity button"),
-        getItemDescription: () => this.page.locator(".cart_description a")
-    } 
+        getItemDescription: () => this.page.locator(".cart_description a"),
+        getPrice: () => this.page.locator(".cart_price"),
+        getTotalPrice: () => this.page.locator(".cart_total_price")
+    }
+    
+    async getPrice() {
+      const priceText = await this.locators.getPrice().textContent();
+    
+      if (!priceText) {
+        throw new Error('Price text is null');
+      }
+    
+      return parseInt(priceText.replace(/\D/g, ''), 10);
+    }
 
+    async getTotalPrice() {
+      const totalPriceText = await this.locators.getTotalPrice().textContent();
+    
+      if (!totalPriceText) {
+        throw new Error('Price text is null');
+      }
+    
+      return parseInt(totalPriceText.replace(/\D/g, ''), 10);
+    }
 }
 
 export default CartPage;
