@@ -30,3 +30,8 @@ export const userData = {
     mobile: "+1000111000",
     successRegisterMessage: "Account Created!"
 }
+
+export const searchData = {
+    existingItemName: "Blue Top",
+    partOfItemName: "Blue"
+}

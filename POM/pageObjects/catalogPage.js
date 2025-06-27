@@ -13,7 +13,11 @@ class CatalogPage {
 
     locators = {
         getJeansViewProductButton: () => this.page.locator("a[href='/product_details/33']"),
-        getSareeBlueViewProductButton: () => this.page.locator("a[href='/product_details/41']")
+        getSareeBlueViewProductButton: () => this.page.locator("a[href='/product_details/41']"),
+        getSearchInputField: () => this.page.getByPlaceholder("Search Product"),
+        getSubmitSearchButton: () => this.page.locator("#submit_search"),
+        getSearchedItemName: () => this.page.locator("div[class='productinfo text-center'] p"),
+        getSearchResult: () => this.page.locator(".product-image-wrapper")
     }
 
     async clickJeansViewProductButton() {
@@ -26,6 +30,18 @@ class CatalogPage {
         await this.locators.getSareeBlueViewProductButton().click();
 
         return new ProductPage(this.page);
+    }
+
+    async enterItemNameSearchField(itemName) {
+        await this.locators.getSearchInputField().fill(itemName);
+
+        return this;
+    } 
+
+    async clickSubmitSearch() {
+        await this.locators.getSubmitSearchButton().click();
+
+        return this;
     }
 }
 

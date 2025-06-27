@@ -1,5 +1,6 @@
 // @ts-check
 
+import CatalogPage from "./catalogPage";
 import LoginPage from "./loginPage";
 import MainPage from "./mainPage";
 
@@ -16,6 +17,7 @@ class Header {
         getSingupLoginLink: () => this.page.locator("a[href='/login']"),
         getLogoIcon: () => this.page.locator(".logo"),
         getHomeLink: () => this.page.locator(".navbar-nav a[href='/']"),
+        getProductsLink: () => this.page.locator("a[href='/products']"),
         getLoggedLink: () => this.page.locator("li:nth-child(10) a:nth-child(1)"),
         getLogoutLink: () => this.page.locator("a[href='/logout']")
 
@@ -37,6 +39,12 @@ class Header {
         await this.locators.getLogoutLink().click();
 
         return new LoginPage(this.page);
+    }
+
+    async clickProductsLink() {
+        await this.locators.getProductsLink().click();
+
+        return new CatalogPage(this.page);
     }
 }
 
