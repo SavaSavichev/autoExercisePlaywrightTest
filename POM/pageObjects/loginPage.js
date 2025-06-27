@@ -1,5 +1,6 @@
 // @ts-check
 
+import MainPage from './mainPage';
 import SignupPage from './signupPage';
 
 class LoginPage {
@@ -14,18 +15,42 @@ class LoginPage {
 
     locators = {
         getText: () => this.page.locator("div[class='login-form'] h2"),
-        getInputNameField: () => this.page.getByPlaceholder("Name"),
-        getInputEmailField: () => this.page.locator("input[data-qa='signup-email']"),
+        getLoginEmailInputField: () => this.page.getByPlaceholder("Email Address").nth(0),
+        getLoginPasswordInputField: () => this.page.getByPlaceholder("Password"),
+        getLoginButton: () => this.page.locator("button[data-qa='login-button']"),
+        getSingupInputNameField: () => this.page.getByPlaceholder("Name"),
+        getSungupInputEmailField: () => this.page.locator("input[data-qa='signup-email']"),
         getSubmitButton: () => this.page.locator("button[data-qa='signup-button']")
     }
 
-    async inputName(name) {
+    async enterLoginEmail(email) {
+        await this.locators.getLoginEmailInputField().clear();
+        await this.locators.getLoginEmailInputField().fill(email);
+
+        return this;
+    }
+
+    async enterLoginPassword(password) {
+        await this.locators.getLoginPasswordInputField().fill(password);
+
+        return this;
+    }
+
+    async clickLoginButton() {
+        await this.locators.getLoginButton().click();
+
+        return new MainPage(this.page);
+    }
+
+    async enterSignupName(name) {
+        await this.locators.getInputNameField().clear();
         await this.locators.getInputNameField().fill(name);
 
         return this;
     }
 
-    async inputEmail(email) {
+    async enterSignupEmail(email) {
+        await this.locators.getInputEmailField().clear();
         await this.locators.getInputEmailField().fill(email);
 
         return this;

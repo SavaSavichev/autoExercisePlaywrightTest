@@ -12,3 +12,8 @@ export const cartData = {
     sareeText: "Beautiful Peacock Blue Cotton Linen Saree",
     emptyCartMessage: "Cart is empty! Click here to buy products."
 }
+
+export const userData = {
+    email: "test@testoviy.adr",
+    pass: "123456"
+}
