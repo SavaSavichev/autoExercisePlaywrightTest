@@ -34,6 +34,7 @@ export const userData = {
 export const searchData = {
     existingItemName: "Blue Top",
     partOfItemName: "Blue",
+    nonExistentName: "fgsgsa",
     listOfItems: [
         "Blue Top",
         "Sleeves Top and Short - Blue & Pink",

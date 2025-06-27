@@ -18,7 +18,7 @@ test.describe("User Account – Registration, Login and Logout", () => {
         await header.clickSingupLoginLink();
 
         const loginPage = new LoginPage(page);
-        await loginPage.enterLoginEmail(userData.email);
+        await loginPage.enterLoginEmail(userData.email)
         await loginPage.enterLoginPassword(userData.pass);
         await loginPage.clickLoginButton();
     

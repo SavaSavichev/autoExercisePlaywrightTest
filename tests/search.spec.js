@@ -26,7 +26,7 @@ test.describe("Search Page – User Interactions and Validations", () => {
         header.clickProductsLink();
 
         const catalogPage = new CatalogPage(page);
-        await catalogPage.enterItemNameSearchField("fgsgsa");
+        await catalogPage.enterItemNameSearchField(searchData.nonExistentName);
         await catalogPage.clickSubmitSearch();
     
         await expect(catalogPage.locators.getSearchResult()).toBeHidden();
@@ -37,7 +37,7 @@ test.describe("Search Page – User Interactions and Validations", () => {
         header.clickProductsLink();
 
         const catalogPage = new CatalogPage(page);
-        await catalogPage.enterItemNameSearchField("Blue");
+        await catalogPage.enterItemNameSearchField(searchData.partOfItemName);
         await catalogPage.clickSubmitSearch();
 
         const itemsList = await catalogPage.locators.getSearchedListOfItemsName().allTextContents();
