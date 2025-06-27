@@ -20,7 +20,9 @@ class LoginPage {
         getLoginButton: () => this.page.locator("button[data-qa='login-button']"),
         getSingupInputNameField: () => this.page.getByPlaceholder("Name"),
         getSungupInputEmailField: () => this.page.locator("input[data-qa='signup-email']"),
-        getSubmitButton: () => this.page.locator("button[data-qa='signup-button']")
+        getSubmitButton: () => this.page.locator("button[data-qa='signup-button']"),
+        getLoginErrorMessage: () => this.page.locator("p:nth-child(4)").nth(0),
+        getRegisterErrorMessage: () => this.page.locator("p:nth-child(5)")
     }
 
     async enterLoginEmail(email) {

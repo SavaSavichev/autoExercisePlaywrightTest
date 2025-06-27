@@ -16,6 +16,9 @@ export const cartData = {
 export const userData = {
     email: "test@testoviy.adr",
     pass: "123456",
+    incorrectPass: "12345",
+    loginErrorMessage: "Your email or password is incorrect!",
+    registerErrorMessage: "Email Address already exist!",
     loggedLinkText: "Logged in as",
     name: "testUser",
     firstName: "User",

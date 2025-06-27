@@ -67,4 +67,30 @@ test.describe("User Account – Registration, Login and Logout", () => {
         
         await expect(accountCreatedPage.locators.getHeaderText()).toHaveText(userData.successRegisterMessage);
     });
+
+    test("Logs in an existing user with incorrect password", async ({ page }) => {
+        const header = new Header(page);
+        await header.clickSingupLoginLink();
+
+        const loginPage = new LoginPage(page);
+        await loginPage.enterLoginEmail(userData.email);
+        await loginPage.enterLoginPassword(userData.incorrectPass);
+        await loginPage.clickLoginButton();
+    
+        await expect(loginPage.locators.getLoginErrorMessage()).toContainText(userData.loginErrorMessage);
+    });
+
+    test("Registers a new user with existing email", async ({ page }) => {
+        const header = new Header(page);
+
+        await header.clickSingupLoginLink();
+
+        const loginPage = new LoginPage(page);
+
+        await loginPage.enterSignupName(userData.name);
+        await loginPage.enterSignupEmail(userData.email);
+        await loginPage.clickSubmitButton();
+    
+        await expect(loginPage.locators.getRegisterErrorMessage()).toContainText(userData.registerErrorMessage);
+    });
 });
