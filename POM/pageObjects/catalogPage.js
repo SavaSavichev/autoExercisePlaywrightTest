@@ -17,6 +17,7 @@ class CatalogPage {
         getSearchInputField: () => this.page.getByPlaceholder("Search Product"),
         getSubmitSearchButton: () => this.page.locator("#submit_search"),
         getSearchedItemName: () => this.page.locator("div[class='productinfo text-center'] p"),
+        getSearchedListOfItemsName: () => this.page.locator(".productinfo p"),
         getSearchResult: () => this.page.locator(".product-image-wrapper")
     }
 

@@ -21,17 +21,6 @@ test.describe("Search Page – User Interactions and Validations", () => {
         await expect(catalogPage.locators.getSearchedItemName()).toHaveText(searchData.existingItemName);
     });
 
-    // test("Searchs existing item with part of the name", async ({ page }) => {
-    //     const header = new Header(page);
-    //     header.clickProductsLink();
-
-    //     const catalogPage = new CatalogPage(page);
-    //     await catalogPage.enterItemNameSearchField(searchData.partOfItemName);
-    //     await catalogPage.clickSubmitSearch();
-    
-    //     await expect(catalogPage.locators.getSearchedItemName()).toHaveText(searchData.existingItemName);
-    // });
-
     test("Searchs existing item with non-existent name", async ({ page }) => {
         const header = new Header(page);
         header.clickProductsLink();
@@ -41,5 +30,18 @@ test.describe("Search Page – User Interactions and Validations", () => {
         await catalogPage.clickSubmitSearch();
     
         await expect(catalogPage.locators.getSearchResult()).toBeHidden();
+    });
+
+    test("Searchs existing item with part of the name", async ({ page }) => {
+        const header = new Header(page);
+        header.clickProductsLink();
+
+        const catalogPage = new CatalogPage(page);
+        await catalogPage.enterItemNameSearchField("Blue");
+        await catalogPage.clickSubmitSearch();
+
+        const itemsList = await catalogPage.locators.getSearchedListOfItemsName().allTextContents();
+    
+        expect(itemsList).toEqual(searchData.listOfItems);
     });
 });

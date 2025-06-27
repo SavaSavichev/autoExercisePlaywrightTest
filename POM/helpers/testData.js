@@ -33,5 +33,14 @@ export const userData = {
 
 export const searchData = {
     existingItemName: "Blue Top",
-    partOfItemName: "Blue"
+    partOfItemName: "Blue",
+    listOfItems: [
+        "Blue Top",
+        "Sleeves Top and Short - Blue & Pink",
+        "Blue Cotton Indie Mickey Dress",
+        "Colour Blocked Shirt – Sky Blue",
+        "Grunt Blue Slim Fit Jeans",
+        "Beautiful Peacock Blue Cotton Linen Saree",
+        "GRAPHIC DESIGN MEN T SHIRT - BLUE"
+    ]
 }
