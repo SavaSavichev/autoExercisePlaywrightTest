@@ -27,7 +27,7 @@ class SignupPage {
         getSubmitButton: () => this.page.locator("button[data-qa='create-account']")
     }
 
-    async clickMrRadioButton() {
+    async clickMaleRadioButton() {
         await this.locators.getMrRadioButton().click();
 
         return this;

@@ -43,15 +43,15 @@ class LoginPage {
     }
 
     async enterSignupName(name) {
-        await this.locators.getInputNameField().clear();
-        await this.locators.getInputNameField().fill(name);
+        await this.locators.getSingupInputNameField().clear();
+        await this.locators.getSingupInputNameField().fill(name);
 
         return this;
     }
 
     async enterSignupEmail(email) {
-        await this.locators.getInputEmailField().clear();
-        await this.locators.getInputEmailField().fill(email);
+        await this.locators.getSungupInputEmailField().clear();
+        await this.locators.getSungupInputEmailField().fill(email);
 
         return this;
     }

@@ -15,5 +15,15 @@ export const cartData = {
 
 export const userData = {
     email: "test@testoviy.adr",
-    pass: "123456"
+    pass: "123456",
+    loggedLinkText: "Logged in as",
+    name: "testUser",
+    firstName: "User",
+    lastName: "Test",
+    adress: "1/13 Pushkina str, Nightplace",
+    state: "Region",
+    city: "Mordor",
+    zip: "0000",
+    mobile: "+1000111000",
+    successRegisterMessage: "Account Created!"
 }
