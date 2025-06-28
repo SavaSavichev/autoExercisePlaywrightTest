@@ -93,4 +93,41 @@ test.describe("User Account – Registration, Login and Logout", () => {
     
         await expect(loginPage.locators.getRegisterErrorMessage()).toContainText(userData.registerErrorMessage);
     });
+
+    test("Attempts to log in with empty required fields", async ({ page }) => {
+        const header = new Header(page);
+
+        await header.clickSingupLoginLink();
+
+        const loginPage = new LoginPage(page);
+        await loginPage.clickSubmitButton();
+    
+        await expect(page).toHaveURL("/login");
+    });
+
+    test("Attempts to register with empty Password field", async ({ page }) => {
+        const header = new Header(page);
+
+        await header.clickSingupLoginLink();
+
+        const loginPage = new LoginPage(page);
+
+        await loginPage.enterSignupName(userData.name);
+        await loginPage.enterSignupEmail(generateEmail());
+        await loginPage.clickSubmitButton();
+
+        const signupPage = new SignupPage(page);
+
+        await signupPage.clickMaleRadioButton();
+        await signupPage.enterFirstName(userData.firstName);
+        await signupPage.enterLastName(userData.lastName);
+        await signupPage.enterAdress(userData.adress);
+        await signupPage.enterState(userData.state);
+        await signupPage.enterCity(userData.city);
+        await signupPage.enterZip(userData.zip);
+        await signupPage.enterPhone(userData.mobile);
+        await signupPage.clickSubmitButton();
+        
+        await expect(page).toHaveURL("/signup");
+    });
 });
