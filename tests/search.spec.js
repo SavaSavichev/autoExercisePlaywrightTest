@@ -5,43 +5,47 @@ import Header from "../POM/pageObjects/header";
 import MainPage from "../POM/pageObjects/mainPage";
 
 test.describe("Search Page – User Interactions and Validations", () => {
-    test.beforeEach(async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.loadMainPage();
-    });
+  test.beforeEach(async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.loadMainPage();
+  });
 
-    test("Searchs existing item with full name", async ({ page }) => {
-        const header = new Header(page);
-        header.clickProductsLink();
+  test("Searchs existing item with full name", async ({ page }) => {
+    const header = new Header(page);
+    header.clickProductsLink();
 
-        const catalogPage = new CatalogPage(page);
-        await catalogPage.enterItemNameSearchField(searchData.existingItemName);
-        await catalogPage.clickSubmitSearch();
-    
-        await expect(catalogPage.locators.getSearchedItemName()).toHaveText(searchData.existingItemName);
-    });
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.enterItemNameSearchField(searchData.existingItemName);
+    await catalogPage.clickSubmitSearch();
 
-    test("Searchs existing item with non-existent name", async ({ page }) => {
-        const header = new Header(page);
-        header.clickProductsLink();
+    await expect(catalogPage.locators.getSearchedItemName()).toHaveText(
+      searchData.existingItemName,
+    );
+  });
 
-        const catalogPage = new CatalogPage(page);
-        await catalogPage.enterItemNameSearchField(searchData.nonExistentName);
-        await catalogPage.clickSubmitSearch();
-    
-        await expect(catalogPage.locators.getSearchResult()).toBeHidden();
-    });
+  test("Searchs existing item with non-existent name", async ({ page }) => {
+    const header = new Header(page);
+    header.clickProductsLink();
 
-    test("Searchs existing item with part of the name", async ({ page }) => {
-        const header = new Header(page);
-        header.clickProductsLink();
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.enterItemNameSearchField(searchData.nonExistentName);
+    await catalogPage.clickSubmitSearch();
 
-        const catalogPage = new CatalogPage(page);
-        await catalogPage.enterItemNameSearchField(searchData.partOfItemName);
-        await catalogPage.clickSubmitSearch();
+    await expect(catalogPage.locators.getSearchResult()).toBeHidden();
+  });
 
-        const itemsList = await catalogPage.locators.getSearchedListOfItemsName().allTextContents();
-    
-        expect(itemsList).toEqual(searchData.listOfItems);
-    });
+  test("Searchs existing item with part of the name", async ({ page }) => {
+    const header = new Header(page);
+    header.clickProductsLink();
+
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.enterItemNameSearchField(searchData.partOfItemName);
+    await catalogPage.clickSubmitSearch();
+
+    const itemsList = await catalogPage.locators
+      .getSearchedListOfItemsName()
+      .allTextContents();
+
+    expect(itemsList).toEqual(searchData.listOfItems);
+  });
 });

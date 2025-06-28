@@ -8,59 +8,68 @@ import ProductPage from "../POM/pageObjects/productPage";
 import { productData } from "../POM/helpers/testData";
 
 test.describe("Product Page – Interactions and Validations", () => {
-    test.beforeEach(async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.loadMainPage();
-    });
+  test.beforeEach(async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.loadMainPage();
+  });
 
-    test("Displays New label on product page", async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.clickMenTshirtViewProductButton();
+  test("Displays New label on product page", async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickMenTshirtViewProductButton();
 
-        const productPage = new ProductPage(page);
-        await expect(productPage.locators.getNewArrivalLable()).toBeVisible();
-    });
+    const productPage = new ProductPage(page);
+    await expect(productPage.locators.getNewArrivalLable()).toBeVisible();
+  });
 
-    test("Returns to main page after clicking the logo", async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.clickMenTshirtViewProductButton();
+  test("Returns to main page after clicking the logo", async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickMenTshirtViewProductButton();
 
-        const header = new Header(page);
-        await header.clickLogo();
-        
-        await expect(header.locators.getHomeLink()).toHaveCSS("color", "rgb(255, 165, 0)");
-    });
+    const header = new Header(page);
+    await header.clickLogo();
 
-    test("Sets jeans quantity and verifies it in the cart", async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.clickMenButtonFromCategory();
-        await mainPage.clickJeansLinkFromMenCategory();
+    await expect(header.locators.getHomeLink()).toHaveCSS(
+      "color",
+      "rgb(255, 165, 0)",
+    );
+  });
 
-        const catalogPage = new CatalogPage(page);
-        await catalogPage.clickJeansViewProductButton();
+  test("Sets jeans quantity and verifies it in the cart", async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickMenButtonFromCategory();
+    await mainPage.clickJeansLinkFromMenCategory();
 
-        const productPage = new ProductPage(page);
-        await productPage.setQuantity(productData.quantity);
-        await productPage.clickAddToCartButton();
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.clickJeansViewProductButton();
 
-        const addedToCartModal = new AddedToCartModal(page);
-        await addedToCartModal.clickViewCartLink();
+    const productPage = new ProductPage(page);
+    await productPage.setQuantity(productData.quantity);
+    await productPage.clickAddToCartButton();
 
-        const cartPage = new CartPage(page);
-        
-        await expect(cartPage.locators.getQuantity()).toHaveText(productData.quantity);
-    });
+    const addedToCartModal = new AddedToCartModal(page);
+    await addedToCartModal.clickViewCartLink();
 
-    test("Adds a product review and verifies success message", async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.clickMenTshirtViewProductButton();
+    const cartPage = new CartPage(page);
 
-        const productPage = new ProductPage(page);
-        await productPage.enterName(productData.name);
-        await productPage.enterEmail(productData.email);
-        await productPage.enterReviewText(productData.text);
-        await productPage.clickSubmitButton();
+    await expect(cartPage.locators.getQuantity()).toHaveText(
+      productData.quantity,
+    );
+  });
 
-        await expect(productPage.locators.getSuccessAddedReviewAlert()).toHaveText(productData.successAddReviewMessage);
-    });
+  test("Adds a product review and verifies success message", async ({
+    page,
+  }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickMenTshirtViewProductButton();
+
+    const productPage = new ProductPage(page);
+    await productPage.enterName(productData.name);
+    await productPage.enterEmail(productData.email);
+    await productPage.enterReviewText(productData.text);
+    await productPage.clickSubmitButton();
+
+    await expect(productPage.locators.getSuccessAddedReviewAlert()).toHaveText(
+      productData.successAddReviewMessage,
+    );
+  });
 });

@@ -8,126 +8,134 @@ import SignupPage from "../POM/pageObjects/signupPage";
 import AccountCreatedPage from "../POM/pageObjects/accountCreatedPage";
 
 test.describe("User Account – Registration, Login and Logout", () => {
-    test.beforeEach(async ({ page }) => {
-        const mainPage = new MainPage(page);
-        await mainPage.loadMainPage();
-    });
+  test.beforeEach(async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.loadMainPage();
+  });
 
-    test("Logs in an existing user", async ({ page }) => {
-        const header = new Header(page);
-        await header.clickSingupLoginLink();
+  test("Logs in an existing user", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickSingupLoginLink();
 
-        const loginPage = new LoginPage(page);
-        await loginPage.enterLoginEmail(userData.email)
-        await loginPage.enterLoginPassword(userData.pass);
-        await loginPage.clickLoginButton();
-    
-        await expect(header.locators.getLoggedLink()).toContainText(userData.loggedLinkText);
-    });
+    const loginPage = new LoginPage(page);
+    await loginPage.enterLoginEmail(userData.email);
+    await loginPage.enterLoginPassword(userData.pass);
+    await loginPage.clickLoginButton();
 
-    test("Logs out the current user", async ({ page }) => {
-        const header = new Header(page);
-        await header.clickSingupLoginLink();
+    await expect(header.locators.getLoggedLink()).toContainText(
+      userData.loggedLinkText,
+    );
+  });
 
-        const loginPage = new LoginPage(page);
-        await loginPage.enterLoginEmail(userData.email);
-        await loginPage.enterLoginPassword(userData.pass);
-        await loginPage.clickLoginButton();
-        
-        await header.clickLogoutLink();
-        
-        await expect(header.locators.getSingupLoginLink()).toBeVisible();
-    });
+  test("Logs out the current user", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickSingupLoginLink();
 
-    test("Registers a new user successfully", async ({ page }) => {
-        const header = new Header(page);
+    const loginPage = new LoginPage(page);
+    await loginPage.enterLoginEmail(userData.email);
+    await loginPage.enterLoginPassword(userData.pass);
+    await loginPage.clickLoginButton();
 
-        await header.clickSingupLoginLink();
+    await header.clickLogoutLink();
 
-        const loginPage = new LoginPage(page);
+    await expect(header.locators.getSingupLoginLink()).toBeVisible();
+  });
 
-        await loginPage.enterSignupName(userData.name);
-        await loginPage.enterSignupEmail(generateEmail());
-        await loginPage.clickSubmitButton();
+  test("Registers a new user successfully", async ({ page }) => {
+    const header = new Header(page);
 
-        const signupPage = new SignupPage(page);
+    await header.clickSingupLoginLink();
 
-        await signupPage.clickMaleRadioButton();
-        await signupPage.enterPassword(userData.pass);
-        await signupPage.enterFirstName(userData.firstName);
-        await signupPage.enterLastName(userData.lastName);
-        await signupPage.enterAdress(userData.adress);
-        await signupPage.enterState(userData.state);
-        await signupPage.enterCity(userData.city);
-        await signupPage.enterZip(userData.zip);
-        await signupPage.enterPhone(userData.mobile);
-        await signupPage.clickSubmitButton();
+    const loginPage = new LoginPage(page);
 
-        const accountCreatedPage = new AccountCreatedPage(page);
-        
-        await expect(accountCreatedPage.locators.getHeaderText()).toHaveText(userData.successRegisterMessage);
-    });
+    await loginPage.enterSignupName(userData.name);
+    await loginPage.enterSignupEmail(generateEmail());
+    await loginPage.clickSubmitButton();
 
-    test("Logs in an existing user with incorrect password", async ({ page }) => {
-        const header = new Header(page);
-        await header.clickSingupLoginLink();
+    const signupPage = new SignupPage(page);
 
-        const loginPage = new LoginPage(page);
-        await loginPage.enterLoginEmail(userData.email);
-        await loginPage.enterLoginPassword(userData.incorrectPass);
-        await loginPage.clickLoginButton();
-    
-        await expect(loginPage.locators.getLoginErrorMessage()).toContainText(userData.loginErrorMessage);
-    });
+    await signupPage.clickMaleRadioButton();
+    await signupPage.enterPassword(userData.pass);
+    await signupPage.enterFirstName(userData.firstName);
+    await signupPage.enterLastName(userData.lastName);
+    await signupPage.enterAdress(userData.adress);
+    await signupPage.enterState(userData.state);
+    await signupPage.enterCity(userData.city);
+    await signupPage.enterZip(userData.zip);
+    await signupPage.enterPhone(userData.mobile);
+    await signupPage.clickSubmitButton();
 
-    test("Registers a new user with existing email", async ({ page }) => {
-        const header = new Header(page);
+    const accountCreatedPage = new AccountCreatedPage(page);
 
-        await header.clickSingupLoginLink();
+    await expect(accountCreatedPage.locators.getHeaderText()).toHaveText(
+      userData.successRegisterMessage,
+    );
+  });
 
-        const loginPage = new LoginPage(page);
+  test("Logs in an existing user with incorrect password", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickSingupLoginLink();
 
-        await loginPage.enterSignupName(userData.name);
-        await loginPage.enterSignupEmail(userData.email);
-        await loginPage.clickSubmitButton();
-    
-        await expect(loginPage.locators.getRegisterErrorMessage()).toContainText(userData.registerErrorMessage);
-    });
+    const loginPage = new LoginPage(page);
+    await loginPage.enterLoginEmail(userData.email);
+    await loginPage.enterLoginPassword(userData.incorrectPass);
+    await loginPage.clickLoginButton();
 
-    test("Attempts to log in with empty required fields", async ({ page }) => {
-        const header = new Header(page);
+    await expect(loginPage.locators.getLoginErrorMessage()).toContainText(
+      userData.loginErrorMessage,
+    );
+  });
 
-        await header.clickSingupLoginLink();
+  test("Registers a new user with existing email", async ({ page }) => {
+    const header = new Header(page);
 
-        const loginPage = new LoginPage(page);
-        await loginPage.clickSubmitButton();
-    
-        await expect(page).toHaveURL("/login");
-    });
+    await header.clickSingupLoginLink();
 
-    test("Attempts to register with empty Password field", async ({ page }) => {
-        const header = new Header(page);
+    const loginPage = new LoginPage(page);
 
-        await header.clickSingupLoginLink();
+    await loginPage.enterSignupName(userData.name);
+    await loginPage.enterSignupEmail(userData.email);
+    await loginPage.clickSubmitButton();
 
-        const loginPage = new LoginPage(page);
+    await expect(loginPage.locators.getRegisterErrorMessage()).toContainText(
+      userData.registerErrorMessage,
+    );
+  });
 
-        await loginPage.enterSignupName(userData.name);
-        await loginPage.enterSignupEmail(generateEmail());
-        await loginPage.clickSubmitButton();
+  test("Attempts to log in with empty required fields", async ({ page }) => {
+    const header = new Header(page);
 
-        const signupPage = new SignupPage(page);
+    await header.clickSingupLoginLink();
 
-        await signupPage.clickMaleRadioButton();
-        await signupPage.enterFirstName(userData.firstName);
-        await signupPage.enterLastName(userData.lastName);
-        await signupPage.enterAdress(userData.adress);
-        await signupPage.enterState(userData.state);
-        await signupPage.enterCity(userData.city);
-        await signupPage.enterZip(userData.zip);
-        await signupPage.enterPhone(userData.mobile);
-        await signupPage.clickSubmitButton();
-        
-        await expect(page).toHaveURL("/signup");
-    });
+    const loginPage = new LoginPage(page);
+    await loginPage.clickSubmitButton();
+
+    await expect(page).toHaveURL("/login");
+  });
+
+  test("Attempts to register with empty Password field", async ({ page }) => {
+    const header = new Header(page);
+
+    await header.clickSingupLoginLink();
+
+    const loginPage = new LoginPage(page);
+
+    await loginPage.enterSignupName(userData.name);
+    await loginPage.enterSignupEmail(generateEmail());
+    await loginPage.clickSubmitButton();
+
+    const signupPage = new SignupPage(page);
+
+    await signupPage.clickMaleRadioButton();
+    await signupPage.enterFirstName(userData.firstName);
+    await signupPage.enterLastName(userData.lastName);
+    await signupPage.enterAdress(userData.adress);
+    await signupPage.enterState(userData.state);
+    await signupPage.enterCity(userData.city);
+    await signupPage.enterZip(userData.zip);
+    await signupPage.enterPhone(userData.mobile);
+    await signupPage.clickSubmitButton();
+
+    await expect(page).toHaveURL("/signup");
+  });
 });
