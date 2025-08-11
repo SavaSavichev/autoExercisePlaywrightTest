@@ -1,5 +1,7 @@
 // @ts-check
 
+import { expect } from '@playwright/test';
+
 class CartPage {
   /**
    * @param {import('@playwright/test').Page} page
@@ -14,7 +16,7 @@ class CartPage {
     getItemDescription: () => this.page.locator(".cart_description a"),
     getPrice: () => this.page.locator(".cart_price"),
     getTotalPrice: () => this.page.locator(".cart_total_price"),
-    getDeleteButton: () => this.page.locator(".fa.fa-times"),
+    getDeleteButton: () => this.page.locator(".cart_quantity_delete"),
     getEmptyCartMessage: () => this.page.locator("#empty_cart"),
   };
 

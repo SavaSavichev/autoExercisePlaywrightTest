@@ -22,6 +22,7 @@ class CatalogPage {
       this.page.locator("div[class='productinfo text-center'] p"),
     getSearchedListOfItemsName: () => this.page.locator(".productinfo p"),
     getSearchResult: () => this.page.locator(".product-image-wrapper"),
+    getListOfItems: () => this.page.locator("div.single-products > div > p")
   };
 
   async clickJeansViewProductButton() {
@@ -46,6 +47,10 @@ class CatalogPage {
     await this.locators.getSubmitSearchButton().click();
 
     return this;
+  }
+
+  async getListOfSeatchItems() {
+    return await this.locators.getListOfItems().allTextContents();
   }
 }
 

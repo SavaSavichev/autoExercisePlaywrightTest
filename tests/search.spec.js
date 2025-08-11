@@ -48,4 +48,17 @@ test.describe("Search Page – User Interactions and Validations", () => {
 
     expect(itemsList).toEqual(searchData.listOfItems);
   });
+
+  test("Searchs list of existing items", async ({ page }) => {
+    const header = new Header(page);
+    header.clickProductsLink();
+
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.enterItemNameSearchField(searchData.partOfItemName);
+    await catalogPage.clickSubmitSearch();
+
+    const itemsList = await catalogPage.getListOfSeatchItems();
+
+    expect(itemsList).toEqual(searchData.listOfItems);
+  });
 });

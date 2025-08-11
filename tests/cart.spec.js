@@ -75,7 +75,7 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await addedToCartModal.clickViewCartLink();
 
     const cartPage = new CartPage(page);
-    cartPage.clickDeleteButton();
+    await cartPage.clickDeleteButton();
 
     await expect(cartPage.locators.getEmptyCartMessage()).toHaveText(
       cartData.emptyCartMessage,
