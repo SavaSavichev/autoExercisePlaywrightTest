@@ -3,6 +3,7 @@ import AddedToCartModal from "../POM/pageObjects/addedToCartModal";
 import CartPage from "../POM/pageObjects/cartPage";
 import CatalogPage from "../POM/pageObjects/catalogPage";
 import MainPage from "../POM/pageObjects/mainPage";
+import Header from "../POM/pageObjects/header";
 import ProductPage from "../POM/pageObjects/productPage";
 import { cartData } from "../POM/helpers/testData";
 
@@ -42,6 +43,24 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     const cartPage = new CartPage(page);
     await expect(cartPage.locators.getItemDescription()).toHaveText(
       cartData.sareeText,
+    );
+  });
+
+  test("Adds jeans to cart from the search page", async ({ page }) => {
+    const header = new Header(page);
+    header.clickProductsLink();
+
+    const catalogPage = new CatalogPage(page);
+    await catalogPage.enterItemNameSearchField(cartData.jeansForSearch);
+    await catalogPage.clickSubmitSearch();
+    await catalogPage.clickAddToCartLink();
+
+    const addedToCartModal = new AddedToCartModal(page);
+    await addedToCartModal.clickViewCartLink();
+
+    const cartPage = new CartPage(page);
+    await expect(cartPage.locators.getItemDescription()).toHaveText(
+      cartData.jeansForSearch,
     );
   });
 

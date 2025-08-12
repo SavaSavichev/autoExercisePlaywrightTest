@@ -1,6 +1,7 @@
 // @ts-check
 
 import ProductPage from "./productPage";
+import AddedToCartModal from "./addedToCartModal";
 
 class CatalogPage {
   /**
@@ -22,7 +23,9 @@ class CatalogPage {
       this.page.locator("div[class='productinfo text-center'] p"),
     getSearchedListOfItemsName: () => this.page.locator(".productinfo p"),
     getSearchResult: () => this.page.locator(".product-image-wrapper"),
-    getListOfItems: () => this.page.locator("div.single-products > div > p")
+    getListOfItems: () => this.page.locator("div.single-products > div > p"),
+    getJeansImage: () => this.page.locator(".productinfo").nth(0),
+    getAddToCartButtonJeans: () => this.page.locator(".add-to-cart").nth(1)
   };
 
   async clickJeansViewProductButton() {
@@ -51,6 +54,13 @@ class CatalogPage {
 
   async getListOfSeatchItems() {
     return await this.locators.getListOfItems().allTextContents();
+  }
+
+  async clickAddToCartLink() {
+    await this.locators.getJeansImage().hover();
+    await this.locators.getAddToCartButtonJeans().click();
+
+    return new AddedToCartModal(this.page);
   }
 }
 

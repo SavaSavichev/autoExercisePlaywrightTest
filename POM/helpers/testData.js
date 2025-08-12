@@ -7,6 +7,7 @@ export const productData = {
 };
 
 export const cartData = {
+  jeansForSearch: "Soft Stretch Jeans",
   quantity: "4",
   blueTopText: "Blue Top",
   sareeText: "Beautiful Peacock Blue Cotton Linen Saree",
@@ -43,5 +44,5 @@ export const searchData = {
     "Grunt Blue Slim Fit Jeans",
     "Beautiful Peacock Blue Cotton Linen Saree",
     "GRAPHIC DESIGN MEN T SHIRT - BLUE",
-  ],
+  ]
 };
