@@ -13,6 +13,17 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await mainPage.loadMainPage();
   });
 
+  test("Empty cart link navigates to product page", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickCartLink();
+
+    const cartPage = new CartPage(page);
+    await cartPage.clickEmptyCartLink();
+
+    const productPage = new ProductPage(page);
+    await productPage.expectOnProductPage();
+  });
+
   test("Adds blue top to cart from the main page", async ({ page }) => {
     const mainPage = new MainPage(page);
     await mainPage.clickAddToCartBlueTop();
@@ -35,10 +46,10 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await catalogPage.clickSareeViewProductButton();
 
     const productPage = new ProductPage(page);
-    productPage.clickAddToCartButton();
+    await productPage.clickAddToCartButton();
 
     const addedToCartModal = new AddedToCartModal(page);
-    addedToCartModal.clickViewCartLink();
+    await addedToCartModal.clickViewCartLink();
 
     const cartPage = new CartPage(page);
     await expect(cartPage.locators.getItemDescription()).toHaveText(
@@ -48,7 +59,7 @@ test.describe("Cart Page – User Interactions and Validations", () => {
 
   test("Adds jeans to cart from the search page", async ({ page }) => {
     const header = new Header(page);
-    header.clickProductsLink();
+    await header.clickProductsLink();
 
     const catalogPage = new CatalogPage(page);
     await catalogPage.enterItemNameSearchField(cartData.jeansForSearch);
@@ -70,11 +81,11 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await mainPage.clickJeansLinkFromMenCategory();
 
     const catalogPage = new CatalogPage(page);
-    catalogPage.clickJeansViewProductButton();
+    await catalogPage.clickJeansViewProductButton();
 
     const productPage = new ProductPage(page);
-    productPage.setQuantity(cartData.quantity);
-    productPage.clickAddToCartButton();
+    await productPage.setQuantity(cartData.quantity);
+    await productPage.clickAddToCartButton();
 
     const addedToCartModal = new AddedToCartModal(page);
     await addedToCartModal.clickViewCartLink();

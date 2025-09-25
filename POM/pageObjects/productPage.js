@@ -1,5 +1,6 @@
 // @ts-check
 
+import { expect } from "@playwright/test";
 import AddedToCartModal from "./addedToCartModal";
 
 class ProductPage {
@@ -56,6 +57,10 @@ class ProductPage {
     await this.locators.getSubmitButton().click();
 
     return this;
+  }
+
+  async expectOnProductPage() {
+    await expect(this.page).toHaveURL(/\/products(?:\/)?$/);
   }
 }
 

@@ -1,6 +1,7 @@
 // @ts-check
 
 import { expect } from '@playwright/test';
+import ProductPage from './productPage';
 
 class CartPage {
   /**
@@ -18,6 +19,7 @@ class CartPage {
     getTotalPrice: () => this.page.locator(".cart_total_price"),
     getDeleteButton: () => this.page.locator(".cart_quantity_delete"),
     getEmptyCartMessage: () => this.page.locator("#empty_cart"),
+    getEmptyCartLink: () => this.page.locator("p a[href='/products']")
   };
 
   async getPrice() {
@@ -44,6 +46,12 @@ class CartPage {
     await this.locators.getDeleteButton().click();
 
     return this;
+  }
+
+  async clickEmptyCartLink() {
+    await this.locators.getEmptyCartLink().click();
+
+    return new ProductPage(this.page);
   }
 }
 
