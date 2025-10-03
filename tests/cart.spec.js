@@ -5,7 +5,7 @@ import CatalogPage from "../POM/pageObjects/catalogPage";
 import MainPage from "../POM/pageObjects/mainPage";
 import Header from "../POM/pageObjects/header";
 import ProductPage from "../POM/pageObjects/productPage";
-import { cartData } from "../POM/helpers/testData";
+import { cartData, productData } from "../POM/helpers/testData";
 
 test.describe("Cart Page – User Interactions and Validations", () => {
   test.beforeEach(async ({ page }) => {
@@ -108,7 +108,20 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await cartPage.clickDeleteButton();
 
     await expect(cartPage.locators.getEmptyCartMessage()).toHaveText(
-      cartData.emptyCartMessage,
-    );
+      cartData.emptyCartMessage);
+  });
+
+  test("Continue shopping keeps user on product page", async ({ page }) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickMenTshirtViewProductButton();
+
+    const productPage = new ProductPage(page);
+    await productPage.clickAddToCartButton();
+    
+    const addedToCartModal = new AddedToCartModal(page);
+    await addedToCartModal.clickContinueShoppingButton();
+
+    await expect(productPage.locators.getProductName()).toHaveText(
+      productData.productName);
   });
 });

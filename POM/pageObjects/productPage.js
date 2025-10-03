@@ -21,6 +21,8 @@ class ProductPage {
     getReviewInputField: () => this.page.getByPlaceholder("Add Review Here!"),
     getSubmitButton: () => this.page.locator("#button-review"),
     getSuccessAddedReviewAlert: () => this.page.locator(".alert-success span"),
+    getContinueShoppingButton: () => this.page.locator(".btn-success"),
+    getProductName: () => this.page.locator(".product-information h2")
   };
 
   async setQuantity(quantity) {
@@ -61,6 +63,10 @@ class ProductPage {
 
   async expectOnProductPage() {
     await expect(this.page).toHaveURL(/\/products(?:\/)?$/);
+  }
+
+  async clickContinueButton() {
+    await this.locators.getContinueShoppingButton().click();
   }
 }
 

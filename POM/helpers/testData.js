@@ -4,6 +4,7 @@ export const productData = {
   email: "mar@mur.test",
   text: "Great product! Thank you!",
   successAddReviewMessage: "Thank you for your review.",
+  productName: "Men Tshirt"
 };
 
 export const cartData = {
@@ -11,7 +12,7 @@ export const cartData = {
   quantity: "4",
   blueTopText: "Blue Top",
   sareeText: "Beautiful Peacock Blue Cotton Linen Saree",
-  emptyCartMessage: "Cart is empty! Click here to buy products.",
+  emptyCartMessage: "Cart is empty! Click here to buy products."
 };
 
 export const userData = {
@@ -29,7 +30,7 @@ export const userData = {
   city: "Mordor",
   zip: "0000",
   mobile: "+1000111000",
-  successRegisterMessage: "Account Created!",
+  successRegisterMessage: "Account Created!"
 };
 
 export const searchData = {
@@ -43,6 +44,6 @@ export const searchData = {
     "Colour Blocked Shirt – Sky Blue",
     "Grunt Blue Slim Fit Jeans",
     "Beautiful Peacock Blue Cotton Linen Saree",
-    "GRAPHIC DESIGN MEN T SHIRT - BLUE",
+    "GRAPHIC DESIGN MEN T SHIRT - BLUE"
   ]
 };
