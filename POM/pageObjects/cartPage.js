@@ -53,6 +53,17 @@ class CartPage {
 
     return new ProductPage(this.page);
   }
+
+  async deleteAllIfAny() {
+    const count = await this.locators.getDeleteButton().count();
+
+    if (count > 0) {
+      for (let i = 0; i < count; i++) {
+        await this.locators.getDeleteButton().first().click();
+        await this.page.waitForTimeout(100);
+      }
+    }
+  }
 }
 
 export default CartPage;

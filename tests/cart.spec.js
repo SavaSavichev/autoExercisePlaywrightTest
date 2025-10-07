@@ -124,4 +124,14 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await expect(productPage.locators.getProductName()).toHaveText(
       productData.productName);
   });
+
+  test("Empty cart shows empty state", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickCartLink();
+
+    const cartPage = new CartPage(page);
+    await cartPage.deleteAllIfAny();
+
+    await expect(cartPage.locators.getEmptyCartMessage()).toBeVisible();
+  });
 });
