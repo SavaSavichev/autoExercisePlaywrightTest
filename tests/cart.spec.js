@@ -132,6 +132,9 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     const cartPage = new CartPage(page);
     await cartPage.deleteAllIfAny();
 
+    await expect(cartPage.locators.getItemDescription()).toHaveCount(0);
+    await expect(cartPage.locators.getEmptyCartMessage()).toHaveText(cartData.emptyCartMessage);
     await expect(cartPage.locators.getEmptyCartMessage()).toBeVisible();
+    await expect(cartPage.locators.getEmptyCartLink()).toHaveAttribute('href', '/products');
   });
 });
