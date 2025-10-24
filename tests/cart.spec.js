@@ -137,4 +137,34 @@ test.describe("Cart Page – User Interactions and Validations", () => {
     await expect(cartPage.locators.getEmptyCartMessage()).toBeVisible();
     await expect(cartPage.locators.getEmptyCartLink()).toHaveAttribute('href', '/products');
   });
+
+  test("Adding same item twice increases its quantity in cart", async ({ page }) => {
+    const header = new Header(page);
+    await header.clickCartLink();
+
+    const cartPage = new CartPage(page);
+    await cartPage.deleteAllIfAny();
+
+    await Promise.all([
+      page.waitForURL('**/'),
+      header.clickLogo(),
+    ]);
+    
+    const mainPage = new MainPage(page);
+    const modal1 = await mainPage.clickAddToCartBlueTop();
+
+    await modal1.clickContinueShoppingButton();
+
+    const modal2 = await mainPage.clickAddToCartBlueTop();
+
+    await Promise.all([
+      page.waitForURL('**/view_cart'),
+      modal2.clickViewCartLink(),
+    ]);
+
+    await expect(cartPage.locators.getItemDescription()).toHaveCount(1);
+    await expect(cartPage.locators.getItemDescription()).toHaveText(cartData.blueTopText);
+    await cartPage.checkQuantity(2);
+    await cartPage.checkTotalPrice();
+  });
 });

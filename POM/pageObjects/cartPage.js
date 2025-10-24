@@ -54,15 +54,37 @@ class CartPage {
     return new ProductPage(this.page);
   }
 
-  async deleteAllIfAny() {
-    const count = await this.locators.getDeleteButton().count();
+  async expectOnProductPage() {
+    await expect(this.page).toHaveURL(/\/products(?:\/)?$/);
+  }
 
-    if (count > 0) {
-      for (let i = 0; i < count; i++) {
-        await this.locators.getDeleteButton().first().click();
-        await this.page.waitForTimeout(100);
-      }
+  async deleteAllIfAny() {
+    let prev = await this.locators.getDeleteButton().count();
+    
+    while (prev > 0) {
+      await this.locators.getDeleteButton().first().click();
+      await expect(this.locators.getDeleteButton()).toHaveCount(prev - 1);
+      prev = await this.locators.getDeleteButton().count();
     }
+  }
+
+  async getFirstItemQuantity() {
+    const quant = await this.locators.getQuantity().first().textContent();
+
+    return Number((quant ?? '').trim());
+  }
+
+  async checkQuantity(expected) {
+    const quantity = new RegExp(`^\\s*${expected}\\s*$`);
+    await expect(this.locators.getQuantity().first()).toHaveText(quantity);
+  }
+
+  async checkTotalPrice() {
+    const quant = await this.getFirstItemQuantity();
+    const price = await this.getPrice();
+    const totalPrice = await this.getTotalPrice();
+
+    expect(totalPrice).toBe(price * quant);
   }
 }
 
