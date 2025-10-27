@@ -17,6 +17,8 @@ class CatalogPage {
       this.page.locator("a[href='/product_details/33']"),
     getSareeBlueViewProductButton: () =>
       this.page.locator("a[href='/product_details/41']"),
+    getPureCottonViewProductButton: () =>
+      this.page.locator("a[href='/product_details/31']"),
     getSearchInputField: () => this.page.getByPlaceholder("Search Product"),
     getSubmitSearchButton: () => this.page.locator("#submit_search"),
     getSearchedItemName: () =>
@@ -25,7 +27,8 @@ class CatalogPage {
     getSearchResult: () => this.page.locator(".product-image-wrapper"),
     getListOfItems: () => this.page.locator("div.single-products > div > p"),
     getJeansImage: () => this.page.locator(".productinfo").nth(0),
-    getAddToCartButtonJeans: () => this.page.locator(".add-to-cart").nth(1)
+    getAddToCartButtonJeans: () => this.page.locator(".add-to-cart").nth(1),
+    getPureCottonPrice: () => this.page.locator(".productinfo h2").nth(3),
   };
 
   async clickJeansViewProductButton() {
@@ -36,6 +39,12 @@ class CatalogPage {
 
   async clickSareeViewProductButton() {
     await this.locators.getSareeBlueViewProductButton().click();
+
+    return new ProductPage(this.page);
+  }
+
+  async clickPureCottonViewProductButton() {
+    await this.locators.getPureCottonViewProductButton().click();
 
     return new ProductPage(this.page);
   }
@@ -61,6 +70,12 @@ class CatalogPage {
     await this.locators.getAddToCartButtonJeans().click();
 
     return new AddedToCartModal(this.page);
+  }
+
+  async getPureCottonPrice() {
+    const price = await this.locators.getPureCottonPrice().textContent();
+
+    return price?.trim();
   }
 }
 

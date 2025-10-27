@@ -56,9 +56,7 @@ test.describe("Product Page – Interactions and Validations", () => {
     );
   });
 
-  test("Adds a product review and verifies success message", async ({
-    page,
-  }) => {
+  test("Adds a product review and verifies success message", async ({page,}) => {
     const mainPage = new MainPage(page);
     await mainPage.clickMenTshirtViewProductButton();
 
@@ -71,5 +69,19 @@ test.describe("Product Page – Interactions and Validations", () => {
     await expect(productPage.locators.getSuccessAddedReviewAlert()).toHaveText(
       productData.successAddReviewMessage,
     );
+  });
+
+  test("Prices from catalog page and from product page are the same", async ({page,}) => {
+    const mainPage = new MainPage(page);
+    await mainPage.clickHMfrommBrands();
+
+    const catalogPage = new CatalogPage(page);
+    const catalogPagePrice = await catalogPage.getPureCottonPrice();
+    await catalogPage.clickPureCottonViewProductButton();
+
+    const productPage = new ProductPage(page);
+    const productPagePrice = await productPage.getPrice();
+
+    expect(catalogPagePrice).toBe(productPagePrice);
   });
 });

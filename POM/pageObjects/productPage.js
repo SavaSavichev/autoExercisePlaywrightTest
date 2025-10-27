@@ -22,7 +22,8 @@ class ProductPage {
     getSubmitButton: () => this.page.locator("#button-review"),
     getSuccessAddedReviewAlert: () => this.page.locator(".alert-success span"),
     getContinueShoppingButton: () => this.page.locator(".btn-success"),
-    getProductName: () => this.page.locator(".product-information h2")
+    getProductName: () => this.page.locator(".product-information h2"),
+    getPrice: () => this.page.locator(".product-information > span > span"),
   };
 
   async setQuantity(quantity) {
@@ -67,6 +68,12 @@ class ProductPage {
 
   async clickContinueButton() {
     await this.locators.getContinueShoppingButton().click();
+  }
+
+  async getPrice() {
+    const price = await this.locators.getPrice().textContent();
+
+    return price?.trim();
   }
 }
 

@@ -26,6 +26,7 @@ class MainPage {
       this.page.locator("a[href='/category_products/6']"),
     getBlueTopImage: () => this.page.locator(".productinfo").nth(0),
     getAddToCartButtonBlueTop: () => this.page.locator(".add-to-cart").nth(1),
+    getHMLibkFromBrands: () => this.page.locator(".nav-stacked a").nth(1),
   };
 
   async loadMainPage() {
@@ -65,6 +66,12 @@ class MainPage {
 
   async clickSareeLinkFromWomenCategory() {
     await this.locators.getSareeLinkFromWomenCategory().click();
+
+    return new CatalogPage(this.page);
+  }
+
+  async clickHMfrommBrands() {
+    await this.locators.getHMLibkFromBrands().click();
 
     return new CatalogPage(this.page);
   }
